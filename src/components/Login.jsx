@@ -1,32 +1,37 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/slices/userSlices';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/contants';
 
 
 const Login = () => {
 
-  const [email,setEmail] = useState("chandan56@gmail.com");
-  const [password,setPassword] = useState("chandan$311A");
-  const [res, setRes] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
 
   const getResponse = async()=>{
-      const response = await axios.post("http://localhost:8000/login",{
+      // eslint-disable-next-line no-unused-vars
+      const response = await axios.post(BASE_URL+"/login",{
           email,
           password
       },
     {
       withCredentials:true
     });
-      const {data} = response;
-      setRes(data);
 
-      // const data = response.json();
-      // setRes(data);
-  }
- 
+    console.log(response.data);
 
- 
+    dispatch(addUser(response.data));
 
-
+    navigate("/")
+  };
+  
   return (
     <div className='flex justify-center mt-35'>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border " >
@@ -44,10 +49,7 @@ const Login = () => {
           <button className="btn btn-primary my-2 mt-5 text-lg" onClick={getResponse} >Login</button>
 
           </div>
-              <div>
-                {res  }
-              </div>
-         
+           
         </div>
         </fieldset>
 </div>
