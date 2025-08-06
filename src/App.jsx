@@ -1,13 +1,14 @@
+import Navbar from "./components/Navbar"
 
-import './App.css'
 
 function App() {
   
 
   return (
-    <>
-      <h1>Devnityx</h1>
-    </>
+   <>
+        <Navbar/>
+        <h1 className="text-4xl">Devnityx</h1>
+   </>
   )
 }
 
