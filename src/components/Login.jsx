@@ -8,8 +8,9 @@ import { BASE_URL } from '../utils/contants';
 
 const Login = () => {
 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [email,setEmail] = useState("roy563@gmail.com");
+  const [password,setPassword] = useState("Ramchandra@12");
+  const [error,setError] = useState("");
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,19 +18,25 @@ const Login = () => {
 
   const getResponse = async()=>{
       // eslint-disable-next-line no-unused-vars
+
+    try{
       const response = await axios.post(BASE_URL+"/login",{
           email,
           password
-      },
-    {
+      },{
       withCredentials:true
-    });
+      });
+      console.log(response.data);
+      dispatch(addUser(response.data));
+      navigate("/")
+    }
+    catch(err){
+      
+      console.log(err);
+      setError(err?.response?.data)
 
-    console.log(response.data);
-
-    dispatch(addUser(response.data));
-
-    navigate("/")
+    }
+   
   };
   
   return (
@@ -45,6 +52,7 @@ const Login = () => {
             <input type="password" className="input" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
             </div>
 
+            <p className='text-red-500 p-2 mx-3'>{error}</p>
           <div className='flex justify-center mb-4 '>
           <button className="btn btn-primary my-2 mt-5 text-lg" onClick={getResponse} >Login</button>
 
