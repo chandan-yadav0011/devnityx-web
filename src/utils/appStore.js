@@ -5,8 +5,8 @@ import feedReducer from "../utils/slices/feedSlices";
 const appStore = configureStore({
     reducer:{
         user: userReducer,
-        feed: feedReducer
+        feed: feedReducer,
     }
 });
 
-export default appStore
+export default appStore;
