@@ -26,9 +26,13 @@ const Body = () => {
         if(err.status===401){
           navigate("/login");
         } 
+        else if(err.status===400) //here for user not found but still we try to access the feed of that user is not possible first it needs to create account
+        {
+          navigate("/signup")
+        }
         console.log(err);
       }
-  }
+  } 
 
   useEffect(()=>{
     if(!userData)

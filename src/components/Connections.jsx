@@ -21,7 +21,7 @@ const Connections = () => {
 
   if(!connectionsData) return ;
 
-  if(connectionsData.length===0) return <h1 className='text-xl'>No Connections found</h1>
+  if(connectionsData.length===0) return <h1 className='flex justify-center m-20'>No Connections found</h1>
 
   return (
     <div className='mt-12'>

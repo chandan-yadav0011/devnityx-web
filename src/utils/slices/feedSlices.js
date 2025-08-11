@@ -9,7 +9,8 @@ const feedSlice = createSlice({
         },
         // eslint-disable-next-line no-unused-vars
         removeFeed:(state,action)=>{
-            return null;
+            const newArray = state.filter((r)=>r._id!==action.payload);
+            return newArray;
         }
     }
 });

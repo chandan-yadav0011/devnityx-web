@@ -20,7 +20,8 @@ const EditProfile = ({user}) => {
   const [about,setAbout] = useState(user?.about);
   const [error,setError] = useState("");
   const [showToast,setShowToast] = useState(false);
-
+  const [showButtons, setShowButtons] = useState(false);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -99,7 +100,7 @@ const EditProfile = ({user}) => {
             </div>
             </fieldset>
         </div>
-        <UserCard user={{firstName,lastName,gender,age,skills,photoUrl,about}}/>
+        <UserCard showButtons ={showButtons} user={{firstName,lastName,gender,age,skills,photoUrl,about}}/>
        {showToast && <div className="toast toast-top toast-center">
             <div className="alert alert-success">
                 <span className='font-bold'>Profile saved successfully.</span>

@@ -1,8 +1,24 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios';
 import React from 'react'
+import { BASE_URL } from '../utils/contants';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../utils/slices/userSlices';
+import { removeFeed } from '../utils/slices/feedSlices';
 
-const UserCard = ({user}) => {
+const UserCard = ({showButtons,user}) => {
   const {firstName,lastName,gender, skills, age, photoUrl,about}= user;
+  
+  
+  const dispatch = useDispatch();
+
+  const handleStatus = async(status,toUserId)=>{
+    const res = await axios.post(BASE_URL+"/request/send/"+status+"/"+toUserId,{},{withCredentials:true});
+    console.log(res.data);
+    dispatch(removeFeed(toUserId));
+  
+    
+  }
   return (
     <div className="card bg-base-300 w-96 shadow-sm ">
         <figure>
@@ -16,10 +32,10 @@ const UserCard = ({user}) => {
              <p>Skills : {skills}</p>
             <p>{about}</p>
             
-            <div className="card-actions justify-center p-4 m-2">
-              <button className="btn btn-primary">Ignore</button>
-              <button className="btn btn-secondary">Interested</button>
-            </div>
+           {showButtons&& <div className="card-actions justify-center p-4 m-2">
+              <button className="btn btn-primary" onClick={()=>handleStatus("ignored", user._id)}>Ignore</button>
+              <button className="btn btn-secondary" onClick={()=>handleStatus("interested",user._id)}>Interested</button>
+            </div>}
         </div>
     </div>
   )
